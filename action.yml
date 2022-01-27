@@ -1,0 +1,40 @@
+name: 'SSH-SCP Server Deploy'
+author: 'Collez'
+description: 'Deploys files and executes commands to a remote host'
+
+inputs:
+  host:
+    description: 'Remote host'
+    required: true
+  port:
+    description: 'Remote port'
+    default: 22
+  username:
+    description: 'SSH remote user'
+    required: true
+  password:
+    description: 'SSH remote password'
+  key:
+    description: 'SSH private key, can be either a path to a file or the key itself'
+  passphrase:
+    description: 'SSH key passphrase'
+  files:
+    description: 'Files and folders to upload. You can use glob patterns'
+    required: true
+  remote-path:
+    description: 'Remote destination path'
+  clean:
+    description: 'Whether to clean the remote path before uploading'
+    default: false
+  before-upload:
+    description: 'Commands to execute before the SCP file transfer, on the host machine'
+  after-upload:
+    description: 'Commands to execute after the SCP file transfer, on the host machine'
+
+branding:
+  icon: 'server'
+  color: 'blue'
+
+runs:
+  using: 'node12'
+  main: 'index.js'

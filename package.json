@@ -1,0 +1,24 @@
+{
+  "name": "ssh-scp-deploy",
+  "version": "1.0.0",
+  "description": "SSH & SCP Deploy with GitHub Actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilCollez/ssh-scp-deploy.git"
+  },
+  "author": "Collez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ilCollez/ssh-scp-deploy/issues"
+  },
+  "homepage": "https://github.com/ilCollez/ssh-scp-deploy#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "fast-glob": "^3.2.11",
+    "node-ssh": "^12.0.3"
+  }
+}
