@@ -48,7 +48,14 @@ if (!password && !privateKey)
     const beforeUpload = getMultilineInput('before-upload');
     if (beforeUpload) {
         console.log('📄 Executing before-upload script...');
-        await deployer.run(beforeUpload).catch(fail);
+                
+        const cmd = await deployer
+            .run(beforeUpload)
+            .catch(fail);
+
+        console.log(cmd.stdout);
+        if (cmd.code !== 0) console.log(cmd.stderr);
+
         console.log('✅ Successfully executed before-upload');
     }
 
@@ -66,7 +73,14 @@ if (!password && !privateKey)
     const afterUpload = getMultilineInput('after-upload');
     if (afterUpload) {
         console.log('📄 Executing after-upload script...');
-        await deployer.run(afterUpload);
+        
+        const cmd = await deployer
+            .run(afterUpload)
+            .catch(fail);
+
+        console.log(cmd.stdout);
+        if (cmd.code !== 0) console.log(cmd.stderr);
+
         console.log('✅ Successfully executed after-upload');
     }
 
