@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/ilCollez/ssh-scp-deploy#readme",
   "dependencies": {
-    "@actions/core": "^1.6.0",
+    "@actions/core": "^1.8.2",
     "fast-glob": "^3.2.11",
     "node-ssh": "^12.0.4"
   }
