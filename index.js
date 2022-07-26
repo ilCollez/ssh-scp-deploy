@@ -46,7 +46,7 @@ if (!password && !privateKey)
     deployer.cwd = getInput('remote-path');
 
     const beforeUpload = getMultilineInput('before-upload');
-    if (beforeUpload) {
+    if (beforeUpload.length) {
         console.log('📄 Executing before-upload script...');
                 
         const cmd = await deployer
@@ -60,9 +60,23 @@ if (!password && !privateKey)
     }
 
     if (getBooleanInput('clean')) {
+        const excludeList = getMultilineInput('clean-exclude');
+
+        if (excludeList.length) {
+            for (const file of excludeList) {
+                await deployer.run(`find ./* -name '${file}' -exec mv {} {}.exclude \\;`).catch(fail);
+            }
+        }
+
         console.log('🗑 Cleaning remote directory...');
-        await deployer.run('rm -rf *').catch(fail);
+        await deployer.run('find ./* ! -name \'*.exclude\' -delete').catch(fail);
         console.log('✅ Successfully cleaned remote path');
+
+        if (excludeList.length) {
+            for (const file of excludeList) {
+                await deployer.run(`find ./* -name '${file}.exclude' -exec mv {} ${file} \\;`).catch(fail);
+            }
+        }
     }
 
     const files = getMultilineInput('files', { required: true });
@@ -71,7 +85,7 @@ if (!password && !privateKey)
     console.log('✅ Files uploaded successfully');
 
     const afterUpload = getMultilineInput('after-upload');
-    if (afterUpload) {
+    if (afterUpload.length) {
         console.log('📄 Executing after-upload script...');
         
         const cmd = await deployer

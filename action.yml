@@ -26,6 +26,8 @@ inputs:
   clean:
     description: 'Whether to clean the remote path before uploading'
     default: false
+  clean-exclude:
+    description: 'List of files to exclude when cleaning the remote path'
   before-upload:
     description: 'Commands to execute before the SCP file transfer, on the host machine'
   after-upload:

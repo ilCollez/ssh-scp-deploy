@@ -11,6 +11,7 @@ This GitHub Action lets you deploy your project to a remote server using SSH and
 - `files` - [**REQUIRED**] Files and folders to upload. You can use glob patterns.
 - `remote-path` -  Remote destination path
 - `clean` -  Whether to clean the remote path before uploading. Default: false
+- `clean-exclude` -  List of files to exclude when cleaning the remote path
 - `before-upload` -  Commands to execute before the SCP file transfer, on the host machine
 - `after-upload` -  Commands to execute after the SCP file transfer, on the host machine
 
@@ -66,6 +67,8 @@ with:
         lib/**/*.js
     remote-path: "/var/www/html"
     clean: true
+    clean-exclude: |
+        .env
     before-upload: |
         echo "Executed before upload"
 
