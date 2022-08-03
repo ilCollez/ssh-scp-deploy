@@ -18,10 +18,12 @@ const fail = (message) => {
 
 const password = getInput('password');
 const privateKey = getInput('key');
+const privateKeyPath = getInput('key-path');
 const passphrase = getInput('passphrase');
 
 setSecret(password);
 setSecret(privateKey);
+setSecret(privateKeyPath);
 setSecret(passphrase);
 
 if (!password && !privateKey)
@@ -37,6 +39,7 @@ if (!password && !privateKey)
             username: getInput('username', { required: true }),
             password,
             privateKey,
+            privateKeyPath,
             passphrase,
         })
         .catch(fail);

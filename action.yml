@@ -15,7 +15,9 @@ inputs:
   password:
     description: 'SSH remote password'
   key:
-    description: 'SSH private key, can be either a path to a file or the key itself'
+    description: 'SSH private key'
+  key-path:
+    description: 'Path to the SSH private key'
   passphrase:
     description: 'SSH key passphrase'
   files:

@@ -6,7 +6,8 @@ This GitHub Action lets you deploy your project to a remote server using SSH and
 - `port` -  Remote port. Default: 22
 - `username` - [**REQUIRED**] SSH remote user
 - `password` -  SSH remote password
-- `key` -  SSH private key, can be either a path to a file or the key itself
+- `key` -  SSH private key
+- `key-path` -  Path to the SSH private key
 - `passphrase` -  SSH key passphrase
 - `files` - [**REQUIRED**] Files and folders to upload. You can use glob patterns.
 - `remote-path` -  Remote destination path
@@ -16,7 +17,7 @@ This GitHub Action lets you deploy your project to a remote server using SSH and
 - `after-upload` -  Commands to execute after the SCP file transfer, on the host machine
 
 ## Example Usage
-**NOTE**: For security reasons, it is recommended to store things like passwrds, ssh keys, passphrases etc. in the `Secrets` section of your GitHub repository.
+**NOTE**: For security reasons, it is recommended to store passwords, ssh keys, passphrases etc. in the `Secrets` section of your GitHub repository.
 ### Using User & Password
 ```yaml
 uses: ilCollez/ssh-scp-deploy@main
@@ -41,7 +42,7 @@ with:
     host: ${{ secrets.SSH_HOST }} # "example.com"
     port: ${{ secrets.SSH_PORT }} # 22
     username: ${{ secrets.SSH_USER }} # "user"
-    key: ${{ secrets.SSH_KEY }} # "~/.ssh/id_rsa", can also be the key itself
+    key: ${{ secrets.SSH_KEY }} # you can also use key-path: "~/.ssh/id_rsa"
     passphrase: ${{ secrets.SSH_PASSPHRASE }} # "passphrase"
     files: |
         *.json
@@ -58,7 +59,7 @@ with:
     host: ${{ secrets.SSH_HOST }} # "example.com"
     port: ${{ secrets.SSH_PORT }} # 22
     username: ${{ secrets.SSH_USER }} # "user"
-    key: ${{ secrets.SSH_KEY }} # "~/.ssh/id_rsa", can also be the key itself
+    key: ${{ secrets.SSH_KEY }} # you can also use key-path: "~/.ssh/id_rsa"
     passphrase: ${{ secrets.SSH_PASSPHRASE }} # "passphrase"
     files: |
         *.json

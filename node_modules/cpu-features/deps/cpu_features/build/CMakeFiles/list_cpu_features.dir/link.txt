@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG -rdynamic CMakeFiles/list_cpu_features.dir/src/utils/list_cpu_features.c.o -o list_cpu_features  libcpu_features.a -ldl 
