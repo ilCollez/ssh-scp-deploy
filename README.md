@@ -20,7 +20,7 @@ This GitHub Action lets you deploy your project to a remote server using SSH and
 **NOTE**: For security reasons, it is recommended to store passwords, ssh keys, passphrases etc. in the `Secrets` section of your GitHub repository.
 ### Using User & Password
 ```yaml
-uses: ilCollez/ssh-scp-deploy@main
+uses: ilCollez/ssh-scp-deploy@v1.1.0
 with:
     host: ${{ secrets.SSH_HOST }} # "example.com"
     port: ${{ secrets.SSH_PORT }} # 22
@@ -37,7 +37,7 @@ with:
 
 ### Using Private Key
 ```yaml
-uses: ilCollez/ssh-scp-deploy@main
+uses: ilCollez/ssh-scp-deploy@v1.1.0
 with:
     host: ${{ secrets.SSH_HOST }} # "example.com"
     port: ${{ secrets.SSH_PORT }} # 22
@@ -54,7 +54,7 @@ with:
 
 ### Using pre-upload and post-upload commands
 ```yaml
-uses: ilCollez/ssh-scp-deploy@main
+uses: ilCollez/ssh-scp-deploy@v1.1.0
 with:
     host: ${{ secrets.SSH_HOST }} # "example.com"
     port: ${{ secrets.SSH_PORT }} # 22
