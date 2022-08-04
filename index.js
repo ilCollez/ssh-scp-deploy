@@ -16,18 +16,23 @@ const fail = (message) => {
     process.exit(1);
 };
 
-const password = getInput('password');
-const privateKey = getInput('key');
-const privateKeyPath = getInput('key-path');
-const passphrase = getInput('passphrase');
+const input = (key, opts = {}) => {
+    const val = getInput(key, opts);
+    return val === '' ? undefined : val;
+}
+
+const password = input('password');
+const privateKey = input('key');
+const privateKeyPath = input('key-path');
+const passphrase = input('passphrase');
 
 setSecret(password);
 setSecret(privateKey);
 setSecret(privateKeyPath);
 setSecret(passphrase);
 
-if (!password && !privateKey)
-    fail('You must provide either a password or a private key');
+if (!password && !(privateKey || privateKeyPath))
+    fail('You must provide either a password, a private key or a private key path');
 
 (async () => {
     console.log('🚀 Connecting...');
