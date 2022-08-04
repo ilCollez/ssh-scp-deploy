@@ -20,6 +20,16 @@ const password = getInput('password');
 const privateKey = getInput('key');
 const privateKeyPath = getInput('key-path');
 const passphrase = getInput('passphrase');
+const connectConfig = {
+    host: getInput('host', { required: true }),
+    port: parseInt(getInput('port')),
+    username: getInput('username', { required: true }),
+    password,
+    passphrase,
+}
+
+if(privateKey != null) connectConfig.privateKey = privateKey;
+else if(privateKeyPath != null) connectConfig.privateKeyPath = privateKeyPath;
 
 setSecret(password);
 setSecret(privateKey);
@@ -33,15 +43,7 @@ if (!password && !privateKey)
     console.log('🚀 Connecting...');
 
     await deployer
-        .connect({
-            host: getInput('host', { required: true }),
-            port: parseInt(getInput('port')),
-            username: getInput('username', { required: true }),
-            password,
-            privateKey,
-            privateKeyPath,
-            passphrase,
-        })
+        .connect(connectConfig)
         .catch(fail);
 
     console.log('✅ Successfully connected');
