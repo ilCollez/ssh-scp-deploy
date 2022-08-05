@@ -22,7 +22,6 @@ inputs:
     description: 'SSH key passphrase'
   files:
     description: 'Files and folders to upload. You can use glob patterns'
-    required: true
   remote-path:
     description: 'Remote destination path'
   clean:

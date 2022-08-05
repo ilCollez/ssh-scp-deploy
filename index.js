@@ -87,10 +87,12 @@ if (!password && !(privateKey || privateKeyPath))
         }
     }
 
-    const files = getMultilineInput('files', { required: true });
-    console.log('📂 Uploading files...');
-    await deployer.upload(files, '.').catch(fail);
-    console.log('✅ Files uploaded successfully');
+    const files = getMultilineInput('files');
+    if (files.length) {
+        console.log('📂 Uploading files...');
+        await deployer.upload(files, '.').catch(fail);
+        console.log('✅ Files uploaded successfully');
+    }
 
     const afterUpload = getMultilineInput('after-upload');
     if (afterUpload.length) {
