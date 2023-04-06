@@ -19,6 +19,6 @@
   "dependencies": {
     "@actions/core": "^1.9.0",
     "fast-glob": "^3.2.11",
-    "node-ssh": "^13.0.1"
+    "node-ssh": "^13.1.0"
   }
 }
