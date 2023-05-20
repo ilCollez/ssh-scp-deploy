@@ -9,7 +9,7 @@ This GitHub Action lets you deploy your project to a remote server using SSH and
 - `key` -  SSH private key
 - `key-path` -  Path to the SSH private key
 - `passphrase` -  SSH key passphrase
-- `files` - [**REQUIRED**] Files and folders to upload. You can use glob patterns.
+- `files` - Files and folders to upload. You can use glob patterns.
 - `remote-path` -  Remote destination path
 - `clean` -  Whether to clean the remote path before uploading. Default: false
 - `clean-exclude` -  List of files to exclude when cleaning the remote path
@@ -83,6 +83,9 @@ with:
 
         pm2 start service        
 ```
+
+## Information
+You can use this library even without uploading files to the remote server. To send commands only, you can use either `before-upload` or` after-upload`
 
 ## To Do
 - [ ] Add support for SSH proxy
