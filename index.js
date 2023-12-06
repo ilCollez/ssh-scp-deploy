@@ -72,17 +72,17 @@ if (!password && !(privateKey || privateKeyPath))
 
         if (excludeList.length) {
             for (const file of excludeList) {
-                await deployer.run(`find ./* -name '${file}' -exec mv {} {}.exclude \\;`).catch(fail);
+                await deployer.run(`find . -name '${file}' -exec mv {} {}.exclude \\;`).catch(fail);
             }
         }
 
         console.log('🗑 Cleaning remote directory...');
-        await deployer.run('find ./* ! -name \'*.exclude\' -delete').catch(fail);
+        await deployer.run('find . ! -name \'*.exclude\' -delete').catch(fail);
         console.log('✅ Successfully cleaned remote path');
 
         if (excludeList.length) {
             for (const file of excludeList) {
-                await deployer.run(`find ./* -name '${file}.exclude' -exec mv {} ${file} \\;`).catch(fail);
+                await deployer.run(`find . -name '${file}.exclude' -exec mv {} ${file} \\;`).catch(fail);
             }
         }
     }
