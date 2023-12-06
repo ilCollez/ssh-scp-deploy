@@ -9,6 +9,7 @@ This GitHub Action lets you deploy your project to a remote server using SSH and
 - `key` -  SSH private key
 - `key-path` -  Path to the SSH private key
 - `passphrase` -  SSH key passphrase
+- `silent` - Whether to log the script's output to stdout. Default: false
 - `files` - Files and folders to upload. You can use glob patterns.
 - `remote-path` -  Remote destination path
 - `clean` -  Whether to clean the remote path before uploading. Default: false

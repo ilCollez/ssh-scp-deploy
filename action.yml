@@ -20,6 +20,9 @@ inputs:
     description: 'Path to the SSH private key'
   passphrase:
     description: 'SSH key passphrase'
+  silent:
+    description: 'Whether to log the script''s output to stdout'
+    default: false
   files:
     description: 'Files and folders to upload. You can use glob patterns'
   remote-path:
