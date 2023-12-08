@@ -27,6 +27,7 @@ inputs:
     description: 'Files and folders to upload. You can use glob patterns'
   remote-path:
     description: 'Remote destination path'
+    default: '/'
   clean:
     description: 'Whether to clean the remote path before uploading'
     default: false

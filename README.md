@@ -1,21 +1,22 @@
 # SSH & SCP Deploy
 This GitHub Action lets you deploy your project to a remote server using SSH and SCP. Even though there are many other actions like this, i wanted to create a more customizable one.
 
-## Input Variables
-- `host` - [**REQUIRED**] Remote host
-- `port` -  Remote port. Default: 22
-- `username` - [**REQUIRED**] SSH remote user
-- `password` -  SSH remote password
-- `key` -  SSH private key
-- `key-path` -  Path to the SSH private key
-- `passphrase` -  SSH key passphrase
-- `silent` - Whether to log the script's output to stdout. Default: false
-- `files` - Files and folders to upload. You can use glob patterns.
-- `remote-path` -  Remote destination path
-- `clean` -  Whether to clean the remote path before uploading. Default: false
-- `clean-exclude` -  List of files to exclude when cleaning the remote path
-- `before-upload` -  Commands to execute before the SCP file transfer, on the host machine
-- `after-upload` -  Commands to execute after the SCP file transfer, on the host machine
+| Required | Name              | Description                                                            | Default   |
+|----------|-------------------|------------------------------------------------------------------------|-----------|
+| **YES**  | `host`            | Remote host                                                            | ""        |
+|          | `port`            | Remote port. Default: 22                                               | 22        |
+| **YES**  | `username`        | SSH remote user                                                        | ""        |
+|          | `password`        | SSH remote password                                                    | ""        |
+|          | `key`             | SSH private key                                                        | ""        |
+|          | `key-path`        | Path to the SSH private key                                            | ""        |
+|          | `passphrase`      | SSH key passphrase                                                     | ""        |
+|          | `silent`          | Whether to log the script's output to stdout                           | false     |
+|          | `files`           | Files and folders to upload. You can use glob patterns.                | ""        |
+|          | `remote-path`     | Remote destination path.                                               | "/"       |
+|          | `clean`           | Whether to clean the remote path before uploading                      | false     |
+|          | `clean-exclude`   | List of files to exclude when cleaning the remote path                 | ""        |
+|          | `before-upload`   | Commands to execute before the SCP file transfer, on the host machine  | ""        |
+|          | `after-upload`    | Commands to execute after the SCP file transfer, on the host machine   | ""        |
 
 ## Example Usage
 **NOTE**: For security reasons, it is recommended to store passwords, ssh keys, passphrases etc. in the `Secrets` section of your GitHub repository.
