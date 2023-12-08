@@ -41,12 +41,15 @@ process.on('exit', (code) => {
 (async () => {
     log('🔄 Checking for updates...');
 
-    try {
+    if (getBooleanInput('check-update')) {
         const latestVersion = await getLatestVersion() ?? version;
-        if (semver.gt(latestVersion, version)) {
+        if (
+            semver.valid(latestVersion) !== null
+            && semver.valid(version) !== null
+            && semver.gt(latestVersion, version)) {
             notice(`✅ A new version (${latestVersion}) of ssh-scp-deploy is available! Go check the new features!`);
         }
-    } catch {}
+    }
 
     log('🚀 Connecting...');
 

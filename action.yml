@@ -37,6 +37,9 @@ inputs:
     description: 'Commands to execute before the SCP file transfer, on the host machine'
   after-upload:
     description: 'Commands to execute after the SCP file transfer, on the host machine'
+  check-update:
+    description: 'Whether to check or not for updates at startup'
+    default: true
 
 branding:
   icon: 'server'

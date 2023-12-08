@@ -17,6 +17,7 @@ This GitHub Action lets you deploy your project to a remote server using SSH and
 |          | `clean-exclude`   | List of files to exclude when cleaning the remote path                 | ""        |
 |          | `before-upload`   | Commands to execute before the SCP file transfer, on the host machine  | ""        |
 |          | `after-upload`    | Commands to execute after the SCP file transfer, on the host machine   | ""        |
+|          | `check-update`    | Whether to check or not for updates at startup                         | true      |
 
 ## Example Usage
 **NOTE**: For security reasons, it is recommended to store passwords, ssh keys, passphrases etc. in the `Secrets` section of your GitHub repository.
