@@ -88,7 +88,7 @@ with:
 ```
 
 ## Information
-You can use this library even without uploading files to the remote server. To send commands only, you can use either `before-upload` or` after-upload`
+You can use this library even without uploading files to the remote server. To send commands only, you can use either `before-upload` or `after-upload`
 
 ## To Do
 - [ ] Add support for SSH proxy
