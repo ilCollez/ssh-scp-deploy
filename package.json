@@ -1,6 +1,6 @@
 {
   "name": "ssh-scp-deploy",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "SSH & SCP Deploy with GitHub Actions",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,9 @@
   "homepage": "https://github.com/ilCollez/ssh-scp-deploy#readme",
   "dependencies": {
     "@actions/core": "^1.10.1",
+    "axios": "^1.6.2",
     "fast-glob": "^3.3.2",
-    "node-ssh": "^13.1.0"
+    "node-ssh": "^13.1.0",
+    "semver": "^7.5.4"
   }
 }

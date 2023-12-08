@@ -3,9 +3,13 @@ const {
     getMultilineInput,
     setSecret,
     getBooleanInput,
+    notice
 } = require('@actions/core');
 
-const { log, fail, input } = require('./lib/utils.js');
+const semver = require('semver');
+const { version } = require("./package.json");
+
+const { log, fail, input, getLatestVersion } = require('./lib/utils.js');
 
 const Deployer = require('./lib/Deployer.js');
 
@@ -35,6 +39,13 @@ process.on('exit', (code) => {
 });
 
 (async () => {
+    log('🔄 Checking for updates...');
+
+    const latestVersion = await getLatestVersion() ?? version;
+    if (semver.gt(latestVersion, version)) {
+        notice(`✅ A new version (${latestVersion}) of ssh-scp-deploy is available! Go check the new features!`);
+    }
+
     log('🚀 Connecting...');
 
     await deployer
