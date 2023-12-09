@@ -1,0 +1,23 @@
+name: Test ssh-scp-deploy
+run-name: Testing ssh-scp-deploy
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test
+        uses: ./
+        with:
+            host: test-server
+            port: 2222
+            username: test-user
+            password: test-password
+            files: |
+                dir/**/*.txt
+            remote-path: '.'
+            clean: true
+            clean-exclude: |
+              logs
+              sshd.pid
+            local-path: test/files

@@ -2,22 +2,26 @@
 This GitHub Action lets you deploy your project to a remote server using SSH and SCP. Even though there are many other actions like this, i wanted to create a more customizable one.
 
 | Required | Name              | Description                                                            | Default   |
-|----------|-------------------|------------------------------------------------------------------------|-----------|
-| **YES**  | `host`            | Remote host                                                            | ""        |
-|          | `port`            | Remote port. Default: 22                                               | 22        |
-| **YES**  | `username`        | SSH remote user                                                        | ""        |
-|          | `password`        | SSH remote password                                                    | ""        |
-|          | `key`             | SSH private key                                                        | ""        |
-|          | `key-path`        | Path to the SSH private key                                            | ""        |
-|          | `passphrase`      | SSH key passphrase                                                     | ""        |
-|          | `silent`          | Whether to log the script's output to stdout                           | false     |
-|          | `files`           | Files and folders to upload. You can use glob patterns.                | ""        |
-|          | `remote-path`     | Remote destination path.                                               | "/"       |
-|          | `clean`           | Whether to clean the remote path before uploading                      | false     |
-|          | `clean-exclude`   | List of files to exclude when cleaning the remote path                 | ""        |
-|          | `before-upload`   | Commands to execute before the SCP file transfer, on the host machine  | ""        |
-|          | `after-upload`    | Commands to execute after the SCP file transfer, on the host machine   | ""        |
-|          | `check-update`    | Whether to check or not for updates at startup                         | true      |
+|----------|-------------------|------------------------------------------------------------------------|---------------|
+| **YES**  | `host`            | Remote host                                                            | ""            |
+|          | `port`            | Remote port. Default: 22                                               | 22            |
+| **YES**  | `username`        | SSH remote user                                                        | ""            |
+|          | `password`        | SSH remote password                                                    | ""            |
+|          | `key`             | SSH private key                                                        | ""            |
+|          | `key-path`        | Path to the SSH private key                                            | ""            |
+|          | `passphrase`      | SSH key passphrase                                                     | ""            |
+|          | `silent`          | Whether to log the script's output to stdout                           | false         |
+|          | `files`           | Files and folders to upload. You can use glob patterns.                | ""            |
+|          | `remote-path`     | Remote destination path.                                               | "/"           |
+|          | `local-path`      | Local base path.                                                       | process.cwd() |
+|          | `clean`           | Whether to clean the remote path before uploading                      | false         |
+|          | `clean-exclude`   | List of files to exclude when cleaning the remote path                 | ""            |
+|          | `before-upload`   | Commands to execute before the SCP file transfer, on the host machine  | ""            |
+|          | `after-upload`    | Commands to execute after the SCP file transfer, on the host machine   | ""            |
+|          | `check-update`    | Whether to check or not for updates at startup                         | true          |
+
+## Information
+You can use this library even without uploading files to the remote server. To send commands only, you can use either `before-upload` or `after-upload`
 
 ## Example Usage
 **NOTE**: For security reasons, it is recommended to store passwords, ssh keys, passphrases etc. in the `Secrets` section of your GitHub repository.
@@ -86,9 +90,6 @@ with:
 
         pm2 start service        
 ```
-
-## Information
-You can use this library even without uploading files to the remote server. To send commands only, you can use either `before-upload` or `after-upload`
 
 ## To Do
 - [ ] Add support for SSH proxy

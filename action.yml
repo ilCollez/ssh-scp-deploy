@@ -28,6 +28,8 @@ inputs:
   remote-path:
     description: 'Remote destination path'
     default: '/'
+  local-path:
+    description: 'Local base path'
   clean:
     description: 'Whether to clean the remote path before uploading'
     default: false
