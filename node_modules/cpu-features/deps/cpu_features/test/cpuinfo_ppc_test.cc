@@ -22,9 +22,20 @@
 namespace cpu_features {
 namespace {
 
-void DisableHardwareCapabilities() { SetHardwareCapabilities(0, 0); }
+TEST(CpustringsPPCTest, PPCFeaturesEnum) {
+   const char *last_name = GetPPCFeaturesEnumName(PPC_LAST_);
+   EXPECT_STREQ(last_name, "unknown_feature");
+   for (int i = static_cast<int>(PPC_32); i != static_cast<int>(PPC_LAST_); ++i) {
+      const auto feature = static_cast<PPCFeaturesEnum>(i);
+      const char *name = GetPPCFeaturesEnumName(feature);
+      ASSERT_FALSE(name == nullptr);
+      EXPECT_STRNE(name, "");
+      EXPECT_STRNE(name, last_name);
+   }
+}
 
 TEST(CpustringsPPCTest, FromHardwareCap) {
+  ResetHwcaps();
   SetHardwareCapabilities(PPC_FEATURE_HAS_FPU | PPC_FEATURE_HAS_VSX,
                           PPC_FEATURE2_ARCH_3_00);
   GetEmptyFilesystem();  // disabling /proc/cpuinfo
@@ -40,7 +51,7 @@ TEST(CpustringsPPCTest, FromHardwareCap) {
 }
 
 TEST(CpustringsPPCTest, Blade) {
-  DisableHardwareCapabilities();
+  ResetHwcaps();
   auto& fs = GetEmptyFilesystem();
   fs.CreateFile("/proc/cpuinfo",
                 R"(processor       : 14
@@ -57,7 +68,8 @@ timebase        : 512000000
 platform        : pSeries
 model           : IBM,8406-70Y
 machine         : CHRP IBM,8406-70Y)");
-  SetPlatformTypes("power7", "power8");
+  SetPlatformPointer("power7");
+  SetBasePlatformPointer("power8");
   const auto strings = GetPPCPlatformStrings();
   ASSERT_STREQ(strings.platform, "pSeries");
   ASSERT_STREQ(strings.model, "IBM,8406-70Y");
@@ -68,7 +80,7 @@ machine         : CHRP IBM,8406-70Y)");
 }
 
 TEST(CpustringsPPCTest, Firestone) {
-  DisableHardwareCapabilities();
+  ResetHwcaps();
   auto& fs = GetEmptyFilesystem();
   fs.CreateFile("/proc/cpuinfo",
                 R"(processor       : 126
@@ -94,7 +106,7 @@ firmware        : OPAL v3)");
 }
 
 TEST(CpustringsPPCTest, w8) {
-  DisableHardwareCapabilities();
+  ResetHwcaps();
   auto& fs = GetEmptyFilesystem();
   fs.CreateFile("/proc/cpuinfo",
                 R"(processor       : 143

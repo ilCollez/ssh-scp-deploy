@@ -1,25 +1,17 @@
 const {
     getInput,
     getMultilineInput,
-    setFailed,
     setSecret,
     getBooleanInput,
+    notice,
 } = require('@actions/core');
 
+const semver = require('semver');
+const { version } = require("./package.json");
+
+const { log, fail, input, getLatestVersion } = require('./lib/utils.js');
+
 const Deployer = require('./lib/Deployer.js');
-
-const deployer = new Deployer();
-
-const fail = (message) => {
-    setFailed(message);
-    deployer.disconnect();
-    process.exit(1);
-};
-
-const input = (key, opts = {}) => {
-    const val = getInput(key, opts);
-    return val === '' ? undefined : val;
-}
 
 const password = input('password');
 const privateKey = input('key');
@@ -31,11 +23,47 @@ setSecret(privateKey);
 setSecret(privateKeyPath);
 setSecret(passphrase);
 
-if (!password && !(privateKey || privateKeyPath))
+if (!password && !(privateKey || privateKeyPath)) {
     fail('You must provide either a password, a private key or a private key path');
+}
+
+const deployer = new Deployer(
+    getInput('local-path') || process.cwd(),
+    getInput('remote-path')
+);
+
+process.on('exit', (code) => {
+    if (code === 0) {
+        log('🚀 All done! disconnecting...');
+    } else {
+        log('🚀 Disconnecting...');
+    }
+
+    deployer.disconnect();
+});
 
 (async () => {
-    console.log('🚀 Connecting...');
+    if (getBooleanInput('check-update')) {
+        log('🔄 Checking for updates...');
+        
+        const latestVersion = await getLatestVersion()
+            .catch(fail) ?? version;
+
+        if (semver.valid(latestVersion) === null) {
+            log(`Could not check for a newer version: ${latestVersion} is not a valid semantic version`);
+        } else if (semver.valid(version) === null) {
+            log(`Could not check for a newer version: ${version} is not a valid semantic version`);
+        } else {
+            if (semver.gt(latestVersion, version)) {
+                log('✅ A new version is available!');
+                notice(`A new version (${latestVersion}) of ssh-scp-deploy is available! Go check the new features!`);
+            } else {
+                log('✅ Already the latest version!');
+            }
+        }
+    }
+
+    log('🚀 Connecting...');
 
     await deployer
         .connect({
@@ -49,22 +77,20 @@ if (!password && !(privateKey || privateKeyPath))
         })
         .catch(fail);
 
-    console.log('✅ Successfully connected');
-
-    deployer.cwd = getInput('remote-path');
+    log('✅ Successfully connected');
 
     const beforeUpload = getMultilineInput('before-upload');
     if (beforeUpload.length) {
-        console.log('📄 Executing before-upload script...');
+        log('📄 Executing before-upload script...');
                 
         const cmd = await deployer
             .run(beforeUpload)
             .catch(fail);
 
-        console.log(cmd.stdout);
-        if (cmd.code !== 0) console.log(cmd.stderr);
+        log(cmd.stdout);
+        if (cmd.code !== 0) log(cmd.stderr);
 
-        console.log('✅ Successfully executed before-upload');
+        log('✅ Successfully executed before-upload');
     }
 
     if (getBooleanInput('clean')) {
@@ -72,43 +98,44 @@ if (!password && !(privateKey || privateKeyPath))
 
         if (excludeList.length) {
             for (const file of excludeList) {
-                await deployer.run(`find ./* -name '${file}' -exec mv {} {}.exclude \\;`).catch(fail);
+                await deployer.run(`find . -name '${file}' -exec mv {} {}.exclude \\;`).catch(fail);
             }
         }
 
-        console.log('🗑 Cleaning remote directory...');
-        await deployer.run('find ./* ! -name \'*.exclude\' -delete').catch(fail);
-        console.log('✅ Successfully cleaned remote path');
+        log('🗑 Cleaning remote directory...');
+        await deployer.run('find . ! -name \'*.exclude\' -delete').catch(fail);
+        log('✅ Successfully cleaned remote path');
 
         if (excludeList.length) {
             for (const file of excludeList) {
-                await deployer.run(`find ./* -name '${file}.exclude' -exec mv {} ${file} \\;`).catch(fail);
+                await deployer.run(`find . -name '${file}.exclude' -exec mv {} ${file} \\;`).catch(fail);
             }
         }
+
+        const c = await deployer.run('ls').catch(fail);
+        console.log(c.stdout);
     }
 
     const files = getMultilineInput('files');
     if (files.length) {
-        console.log('📂 Uploading files...');
-        await deployer.upload(files, '.').catch(fail);
-        console.log('✅ Files uploaded successfully');
+        log('📂 Uploading files...');
+        await deployer.upload(files).catch(fail);
+        log('✅ Files uploaded successfully');
     }
 
     const afterUpload = getMultilineInput('after-upload');
     if (afterUpload.length) {
-        console.log('📄 Executing after-upload script...');
+        log('📄 Executing after-upload script...');
         
         const cmd = await deployer
             .run(afterUpload)
             .catch(fail);
 
-        console.log(cmd.stdout);
-        if (cmd.code !== 0) console.log(cmd.stderr);
+        log(cmd.stdout);
+        if (cmd.code !== 0) log(cmd.stderr);
 
-        console.log('✅ Successfully executed after-upload');
+        log('✅ Successfully executed after-upload');
     }
 
-    console.log('🚀 All done! disconnecting...');
-
-    deployer.disconnect();
+    process.exit(0);
 })();

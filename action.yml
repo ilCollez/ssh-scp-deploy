@@ -20,10 +20,16 @@ inputs:
     description: 'Path to the SSH private key'
   passphrase:
     description: 'SSH key passphrase'
+  silent:
+    description: 'Whether to log the script''s output to stdout'
+    default: false
   files:
     description: 'Files and folders to upload. You can use glob patterns'
   remote-path:
     description: 'Remote destination path'
+    default: '/'
+  local-path:
+    description: 'Local base path'
   clean:
     description: 'Whether to clean the remote path before uploading'
     default: false
@@ -33,6 +39,9 @@ inputs:
     description: 'Commands to execute before the SCP file transfer, on the host machine'
   after-upload:
     description: 'Commands to execute after the SCP file transfer, on the host machine'
+  check-update:
+    description: 'Whether to check or not for updates at startup'
+    default: true
 
 branding:
   icon: 'server'
