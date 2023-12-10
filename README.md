@@ -16,8 +16,8 @@ This GitHub Action lets you deploy your project to a remote server using SSH and
 |          | `local-path`      | Local base path.                                                       | process.cwd() |
 |          | `clean`           | Whether to clean the remote path before uploading                      | false         |
 |          | `clean-exclude`   | List of files to exclude when cleaning the remote path                 | ""            |
-|          | `before-upload`   | Commands to execute before the SCP file transfer, on the host machine  | ""            |
-|          | `after-upload`    | Commands to execute after the SCP file transfer, on the host machine   | ""            |
+|          | `before-upload`   | Commands executed before the file transfer, on the host machine        | ""            |
+|          | `after-upload`    | Commands executed after the file transfer, on the host machine         | ""            |
 |          | `check-update`    | Whether to check or not for updates at startup                         | true          |
 
 ## Information
