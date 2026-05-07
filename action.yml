@@ -8,7 +8,7 @@ inputs:
     required: true
   port:
     description: 'Remote port'
-    default: 22
+    default: '22'
   username:
     description: 'SSH remote user'
     required: true
@@ -22,7 +22,7 @@ inputs:
     description: 'SSH key passphrase'
   silent:
     description: 'Whether to log the script''s output to stdout'
-    default: false
+    default: 'false'
   files:
     description: 'Files and folders to upload. You can use glob patterns'
   remote-path:
@@ -32,7 +32,7 @@ inputs:
     description: 'Local base path'
   clean:
     description: 'Whether to clean the remote path before uploading'
-    default: false
+    default: 'false'
   clean-exclude:
     description: 'List of files to exclude when cleaning the remote path'
   before-upload:
@@ -41,12 +41,12 @@ inputs:
     description: 'Commands to execute after the SCP file transfer, on the host machine'
   check-update:
     description: 'Whether to check or not for updates at startup'
-    default: true
+    default: 'true'
 
 branding:
   icon: 'server'
   color: 'blue'
 
 runs:
-  using: 'node16'
-  main: 'index.js'
+  using: 'node20'
+  main: 'dist/index.js'

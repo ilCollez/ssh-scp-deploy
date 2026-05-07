@@ -1,0 +1,14 @@
+node_modules/
+*.log
+npm-debug.log*
+.DS_Store
+.env
+.env.local
+.idea/
+.vscode/
+coverage/
+.nyc_output/
+.vitest-cache/
+.claude/
+
+# dist/ is built and committed (action runtime needs it). Do NOT ignore it.
