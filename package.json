@@ -7,7 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "ncc build index.js -o dist --source-map --license licenses.txt",
+    "build": "ncc build index.js -o dist --source-map --license licenses.txt && rm -rf dist/build dist/lib dist/pagent.exe",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
